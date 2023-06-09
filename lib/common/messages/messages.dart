@@ -10,6 +10,8 @@ abstract class MessagesApp {
   static const successUserInsert = 'Usuário Cadastrado!';
   static const successUserUpdate = 'Usuário Atualizado!';
   static const successUserDelete = 'Usuário Apagado!';
+  static const noUsers = 'Nenhum Usuário Cadastrado!';
+
   static showCustom(
     BuildContext context,
     String message, {

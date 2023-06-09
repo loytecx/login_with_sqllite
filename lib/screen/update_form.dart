@@ -24,6 +24,7 @@ class _UpdateUserFormState extends State<UpdateUser> {
   final _userEmailController = TextEditingController();
   final _userPasswordController = TextEditingController();
   final _userPasswordConfirmController = TextEditingController();
+  final _userAvatarController = TextEditingController();
   late final UserModel user;
 
   @override
@@ -39,7 +40,7 @@ class _UpdateUserFormState extends State<UpdateUser> {
       _userNameController.text = user.userName;
       _userEmailController.text = user.userEmail;
       _userPasswordController.text = user.userPassword;
-      // _userPasswordConfirmController.text = user;
+      _userAvatarController.text = user.userAvatar;
     });
   }
 
@@ -56,6 +57,7 @@ class _UpdateUserFormState extends State<UpdateUser> {
         userName: _userNameController.text.trim(),
         userEmail: _userEmailController.text.trim(),
         userPassword: _userPasswordController.text.trim(),
+        userAvatar: _userAvatarController.text.trim(),
       );
 
       final db = SqlLiteDb();
@@ -90,7 +92,7 @@ class _UpdateUserFormState extends State<UpdateUser> {
       headerAnimationLoop: false,
       // animType: AnimType.topSlide,
       title: 'Confirma Exclusão???',
-      btnCancelOnPress: () => Navigator.pop(context),
+      btnCancelOnPress: () {},
       btnOkText: 'Sim',
       btnOkOnPress: () {
         final db = SqlLiteDb();
@@ -112,7 +114,7 @@ class _UpdateUserFormState extends State<UpdateUser> {
             headerAnimationLoop: false,
             dialogType: DialogType.error,
             title: MessagesApp.errorDefault,
-            btnCancelOnPress: () => Navigator.pop(context),
+            btnCancelOnPress: () {},
             btnCancelText: 'OK',
           ).show();
         });
@@ -135,7 +137,8 @@ class _UpdateUserFormState extends State<UpdateUser> {
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const UserLoginHeader('Atualização dos Dados'),
+                UserLoginHeader(
+                    'Atualização dos Dados', _userAvatarController.text.trim()),
                 UserTextField(
                   hintName: 'login',
                   icon: Icons.person,

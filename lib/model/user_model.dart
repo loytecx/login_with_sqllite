@@ -3,12 +3,14 @@ class UserModel {
   String userName;
   String userEmail;
   String userPassword;
+  String userAvatar;
 
   UserModel({
     required this.userId,
     required this.userName,
     required this.userEmail,
     required this.userPassword,
+    required this.userAvatar,
   });
 
   @override

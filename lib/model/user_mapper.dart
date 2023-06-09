@@ -10,6 +10,7 @@ abstract class UserMapper {
       UserTableSchema.userNameColumn: user.userName,
       UserTableSchema.userEmailColumn: user.userEmail,
       UserTableSchema.userPasswordColumn: user.userPassword,
+      UserTableSchema.userAvatarColumn: user.userAvatar,
     };
   }
 
@@ -21,6 +22,7 @@ abstract class UserMapper {
       userName: map[UserTableSchema.userNameColumn],
       userEmail: map[UserTableSchema.userEmailColumn],
       userPassword: map[UserTableSchema.userPasswordColumn],
+      userAvatar: map[UserTableSchema.userAvatarColumn],
     );
   }
 
@@ -31,6 +33,7 @@ abstract class UserMapper {
       userName: user.userName,
       userEmail: user.userEmail,
       userPassword: user.userPassword,
+      userAvatar: user.userAvatar,
     );
   }
 }

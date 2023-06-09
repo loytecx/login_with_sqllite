@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_with_sqllite/model/user_model.dart';
+import 'package:login_with_sqllite/screen/dashboard.dart';
 import 'package:login_with_sqllite/screen/login_form.dart';
 import 'package:login_with_sqllite/screen/signup_form.dart';
 import 'package:login_with_sqllite/screen/update_form.dart';
@@ -8,6 +9,7 @@ class RoutesApp {
   static const home = '/';
   static const loginSgnup = '/loginSignup';
   static const loginUpdate = '/loginUpdate';
+  static const dashboard = '/dashboard';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final arguments = settings.arguments;
@@ -23,6 +25,15 @@ class RoutesApp {
           return MaterialPageRoute(
             // builder: (context) => UdpateUser(arguments),
             builder: (context) => const UpdateUser(),
+            settings: settings,
+          );
+        } else {
+          return _errorRoute();
+        }
+      case dashboard:
+        if (arguments is List<UserModel>) {
+          return MaterialPageRoute(
+            builder: (context) => const Dashboard(),
             settings: settings,
           );
         } else {

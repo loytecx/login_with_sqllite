@@ -22,6 +22,7 @@ class _SignUpState extends State<SignUp> {
   final _userEmailController = TextEditingController();
   final _userPasswordController = TextEditingController();
   final _userPasswordConfirmController = TextEditingController();
+  final _userAvatarController = TextEditingController();
 
   @override
   void dispose() {
@@ -30,6 +31,7 @@ class _SignUpState extends State<SignUp> {
     _userEmailController.dispose();
     _userPasswordController.dispose();
     _userPasswordConfirmController.dispose();
+    _userAvatarController.dispose();
     super.dispose();
   }
 
@@ -42,11 +44,19 @@ class _SignUpState extends State<SignUp> {
         MessagesApp.showCustom(context, MessagesApp.errorPasswordMistach);
         return;
       }
+      String avatar;
+      if (_userAvatarController.text.isEmpty) {
+        avatar =
+            "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png";
+      } else {
+        avatar = _userAvatarController.text.trim();
+      }
       UserModel user = UserModel(
         userId: _userLoginController.text.trim(),
         userName: _userNameController.text.trim(),
         userEmail: _userEmailController.text.trim(),
         userPassword: _userPasswordController.text.trim(),
+        userAvatar: avatar,
       );
 
       final db = SqlLiteDb();
@@ -93,7 +103,7 @@ class _SignUpState extends State<SignUp> {
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const UserLoginHeader('Cadastrar Login'),
+                const UserLoginHeader('Cadastrar Login', ''),
                 UserTextField(
                   hintName: 'login',
                   icon: Icons.person,
@@ -121,6 +131,11 @@ class _SignUpState extends State<SignUp> {
                   hintName: 'Confirmação de Senha',
                   controller: _userPasswordConfirmController,
                   icon: Icons.lock,
+                ),
+                UserTextField(
+                  hintName: 'Url da foto',
+                  controller: _userAvatarController,
+                  icon: Icons.image,
                 ),
                 Container(
                   padding: const EdgeInsets.only(

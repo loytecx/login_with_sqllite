@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class UserLoginHeader extends StatelessWidget {
   final String nameHeader;
-  const UserLoginHeader(this.nameHeader, {super.key});
+  final String? avatar;
+  const UserLoginHeader(this.nameHeader, this.avatar, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +17,7 @@ class UserLoginHeader extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 20),
-        Image.asset(
-          'assets/images/login.png',
-          height: 180,
-        ),
+        _newMethod(),
         const SizedBox(height: 20),
         const Text(
           'Aula de Dispositivos Móveis',
@@ -31,5 +29,23 @@ class UserLoginHeader extends StatelessWidget {
         const SizedBox(height: 20),
       ],
     );
+  }
+
+  CircleAvatar _newMethod() {
+    if (avatar!.isNotEmpty) {
+      return CircleAvatar(
+        maxRadius: 80,
+        backgroundImage: NetworkImage(
+          avatar!,
+        ),
+      );
+    } else {
+      return CircleAvatar(
+        maxRadius: 80,
+        child: Image.asset(
+          'assets/images/login.png',
+        ),
+      );
+    }
   }
 }

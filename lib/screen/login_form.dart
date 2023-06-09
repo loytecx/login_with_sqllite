@@ -40,7 +40,7 @@ class _LoginFormState extends State<LoginForm> {
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const UserLoginHeader('Login'),
+                const UserLoginHeader('Login', ''),
                 UserTextField(
                   hintName: 'Login',
                   icon: Icons.person_2_outlined,
@@ -64,28 +64,47 @@ class _LoginFormState extends State<LoginForm> {
                       if (_formKey.currentState!.validate()) {
                         final db = SqlLiteDb();
 
-                        db
-                            .getLoginUser(
-                          _userLoginController.text.trim(),
-                          _userPasswordController.text.trim(),
-                        )
-                            .then(
-                          (user) {
-                            if (user == null) {
+                        if (_userLoginController.text.trim() == "root" &&
+                            _userPasswordController.text.trim() == "root") {
+                          db.getAll().then((list) {
+                            if (list == null) {
                               MessagesApp.showCustom(
-                                  context, MessagesApp.errorUserNoExist);
+                                  context, MessagesApp.noUsers);
                             } else {
                               Navigator.pushNamed(
                                 context,
-                                RoutesApp.loginUpdate,
-                                arguments: user,
+                                RoutesApp.dashboard,
+                                arguments: list,
                               );
                             }
-                          },
-                        ).catchError(
-                          (_) => MessagesApp.showCustom(
-                              context, MessagesApp.errorDefault),
-                        );
+                          }).catchError(
+                            (_) => MessagesApp.showCustom(
+                                context, MessagesApp.errorDefault),
+                          );
+                        } else {
+                          db
+                              .getLoginUser(
+                            _userLoginController.text.trim(),
+                            _userPasswordController.text.trim(),
+                          )
+                              .then(
+                            (user) {
+                              if (user == null) {
+                                MessagesApp.showCustom(
+                                    context, MessagesApp.errorUserNoExist);
+                              } else {
+                                Navigator.pushNamed(
+                                  context,
+                                  RoutesApp.loginUpdate,
+                                  arguments: user,
+                                );
+                              }
+                            },
+                          ).catchError(
+                            (_) => MessagesApp.showCustom(
+                                context, MessagesApp.errorDefault),
+                          );
+                        }
                       }
                     },
                     style:

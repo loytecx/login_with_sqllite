@@ -82,4 +82,21 @@ class SqlLiteDb {
 
     return null;
   }
+
+  Future<List<UserModel>?> getAll() async {
+    List<UserModel> users = [];
+    var dbClient = await dbInstance;
+    var res =
+        await dbClient.rawQuery("SELECT * FROM ${UserTableSchema.nameTable}");
+
+    if (res.isNotEmpty) {
+      for (var i = 0; i < res.length; i++) {
+        users.add(UserMapper.fromMapBD(res[i]));
+      }
+
+      return users;
+    }
+
+    return null;
+  }
 }

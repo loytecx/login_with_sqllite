@@ -52,12 +52,15 @@ class UserTextField extends StatelessWidget {
           prefixIcon: Icon(icon),
         ),
         validator: (value) {
-          if (value == null || value.trim().isEmpty) {
-            return 'Por favor Digite $hintName';
+          if (hintName != "Url da foto") {
+            if (value == null || value.trim().isEmpty) {
+              return 'Por favor Digite $hintName';
+            }
+            if ((hintName == 'Email') && !validateEmail(value)) {
+              return 'Digite um email válido';
+            }
           }
-          if ((hintName == 'Email') && !validateEmail(value)) {
-            return 'Digite um email válido';
-          }
+
           return null;
         },
       ),
